@@ -1,8 +1,8 @@
 <div class="hero-header">
   <h2>Welcome! <small>So far, <%= VendorKit::Download.count %> downloads, <%= VendorKit::Vendor.count %> vendors</small></h2>
 
-  <p>Welcome to the Vendorforge! A place where you can upload, publish and find iOS/Mac OSX development libraries for your projects!</p>
-  <p>All parts of Vendor and Vendorforge are open source, so everyone is encouraged to contribute back!</p>
+  <p>Welcome to VendorKit! A place where you can upload, publish and find iOS/Mac OSX development libraries for your projects!</p>
+  <p>All parts of VendorKit are open source, so everyone is encouraged to contribute back!</p>
 
   <a href="https://github.com/keithpitt/vendor" class="btn primary">See the source »</a>
 </div>
@@ -11,9 +11,12 @@
 
   <div class="span8">
     <h4>News</h4>
-    <p><span class="label success">New!</span> <strong>Designer Wanted!</strong></p>
+    <p><span class="label success">New!</span> <strong>Rename</strong></p>
+    <p>VendorForge and Vendor have merged to a new brand, VendorKit! This should make the code base and the world a much safer place to live.</p>
+
+    <p><strong>Designer Wanted!</strong></p>
     <p>Are you a designer? Want to help out an open source project and get your name in the credits?</p>
-    <p>I need some love poured across the Vendorforge website. Hit me up at <a href="https://twitter.com/keithpitt">@keithpitt</a> if you want to help out!</p>
+    <p>I need some love poured across the VendorKit website. Hit me up at <a href="https://twitter.com/keithpitt">@keithpitt</a> if you want to help out!</p>
 
     <p><strong>Version 0.1.1 has been released!</strong></p>
     <p>Vendor will now back up your Xcode project before saving it back to the filesystem.</p>
@@ -23,9 +26,9 @@
   </div>
 
   <div class="span8">
-    <h4>What is Vendor?</h4>
+    <h4>What is VendorKit?</h4>
     <p><strong>Overview</strong></p>
-    <p>Vendor makes the process of using and managing libraries in iOS easy. Vendor is modeled after Bundler. Vendor streamlines the installation and update process for dependent libraries. It also tracks versions and manages dependencies between libraries.</p>
+    <p>VendorKit makes the process of using and managing libraries in iOS easy. VendorKit is modeled after Bundler. VendorKit streamlines the installation and update process for dependent libraries. It also tracks versions and manages dependencies between libraries.</p>
     <p><strong>How does it work?</strong></p>
     <p>Vendor works by making direct modifications to your project file. When you install a library, vendor will copy all the source files, build setting and frameworks
     to your project, then save it. That way, when you want to install a library, all you have to do is add it to your Vendorfile, and then type into your Terminal <code>vendor install</code></p>
@@ -38,7 +41,7 @@
 <div class="row">
 
   <div class="span-one-third">
-    <h3 style="padding-bottom: 5px">New Vendors</h3>
+    <h3 style="padding-bottom: 5px">New Libraries</h3>
     <ul>
       <% @latest_vendors.each do |vendor| %>
         <%= render :partial => "vendors/small", :locals => { :vendor => vendor } %>
@@ -56,7 +59,7 @@
   </div>
 
   <div class="span-one-third">
-    <h3 style="padding-bottom: 5px">Updated Vendors</h3>
+    <h3 style="padding-bottom: 5px">Updated Libraries</h3>
     <ul>
       <% @updated_vendors.each do |vendor| %>
         <%= render :partial => "vendors/small", :locals => { :vendor => vendor } %>
