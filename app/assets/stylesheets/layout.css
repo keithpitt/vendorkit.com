@@ -32,3 +32,7 @@ hr {
 input[type="file"] {
   background: transparent;
 }
+
+code {
+  background: transparent;
+}

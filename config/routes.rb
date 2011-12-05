@@ -4,6 +4,8 @@ VendorKit::Application.routes.draw do
 
   root :to => 'pages#index'
 
+  match "documentation", :to => "pages#documentation"
+
   resources :vendors, :only => [ :index, :new, :create, :show, :destroy ] do
     get "versions/:version" => "vendors#show", :as => :version, :constraints  => { :version => /[0-z\.]+/ }
     get "versions/:version/download" => "vendors#download", :as => :download, :constraints  => { :version => /[0-z\.]+/ }

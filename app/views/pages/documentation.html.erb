@@ -1,0 +1,122 @@
+<div class="page-header">
+  <h1>Documentation</h1>
+</div>
+
+<p><strong>Note: This documentation is still a work in progress. If you have any questions, feel free to get in contact with me.</strong></p>
+
+<p>Vendor makes the process of using and managing libraries in iOS easy. Vendor is modeled after <a href="https://github.com/carlhuda/bundler">Bundler</a>. Vendor streamlines the installation and update process for dependent libraries.  It also tracks versions and manages dependencies between libraries.</p>
+
+<h2>Installation</h2>
+
+<p>If you have <a href="http://beginrescueend.com/rvm/install/">RVM</a> installed, simply run:</p>
+
+<pre><code>$ gem install vendor</code></pre>
+
+<p>Otherwise, you'll need to:</p>
+
+<pre><code>$ sudo gem install vendor</code></pre>
+
+<h2>Installing Libraries</h2>
+
+<h3>Step 1: Specify dependencies</h3>
+
+<p>Specify your dependencies in a Vendors file in your project's root.</p>
+
+<pre><code># Downloads the latest version of DKBenchmark from
+# http://vendorkit.com
+lib "DKBenchmark"
+
+# Downloads version 0.5 of DKPredicateBuilder from
+# http://vendorkit.com
+lib "DKPredicateBuilder", '0.5'
+
+# Include all the source files found in ~/Development/DKRest/Classes
+# This is usefull when developing your own libraries
+lib "DKRest", :path =&gt; "~/Development/DKRest", :require =&gt; "Classes"
+
+# Checks out the git repo and includes all the files found in the
+# AFNetworking folder in the repo. The require option is handy for
+# repo's that haven't created vendor libraries and pushed them to
+# VendorKit
+lib "DKRest", :git =&gt; "git://github.com/gowalla/AFNetworking.git", :require =&gt; "AFNetworking"
+
+# The Vendorfile allows you to specify targets to add your libraries to.
+# By default, each library will be added to all targets, but if you have
+# library that you only wanted to use in the "Integration Tests" target,
+# you could do the following
+target "Integration Tests" do
+  lib "cedar", '0.2'
+end
+
+# These lines are an alternative syntax to the target specification above
+lib "OCMock", :targets =&gt; [ "Integration Tests", "Specs" ]
+lib "Kiwi", :target =&gt; "Specs"</code></pre>
+
+<p>You can do this by either creating a <code>Vendorfile</code> manually, or by running:</p>
+
+<pre><code>$ vendor init</code></pre>
+
+<h3>Step 2: Install dependencies</h3>
+
+<pre><code>$ vendor install
+$ git add Vendors.lock</code></pre>
+
+<p>Installing a vendor library gets the latest version of the code, and adds them directly to your project in a <code>Vendor</code> group.</p>
+
+<p>As part of the installation process the required frameworks are added aswell as any compiler/linker flags. The installed version of the library is captured in the Vendors.lock file.</p>
+
+<h3>Step 3: There is no spoon</h3>
+
+<p>Or step 3 for that matter!</p>
+
+<h2>Creating Libraries</h2>
+
+<p>If a vendor library has no framework dependencies, has no required additional compiler/linker flags, and has an XCode project, it doesn’t require a "vendorspec". An example is JSONKit, which may be specified as below. However, if another Vendor library requires JSONKit, JSONKit must have a vendorspec.</p>
+
+<pre><code>lib "JSONKit", :git =&gt; "https://github.com/johnezang/JSONKit.git"</code></pre>
+
+<p>However, if the vendor library requires frameworks or has dependencies on other Vendor libraries, it must have a vendorspec. As with Rubygems, a vendorspec is some declarative Ruby code that is open source and centrally managed.</p>
+
+<p>To create a vendorspec, simply run:</p>
+
+<pre><code>$ vendor library init</code></pre>
+
+<p>This command will create a blank <code>.vendorspec</code> file that looks something like this:</p>
+
+<pre><code>Vendor::Spec.new do |s|
+
+    s.name           "DKBenchmark"
+    s.version        "0.1"
+
+    s.authors        "keithpitt"
+    s.email          "me@keithpitt.com"
+    s.description    "Easy benchmarking in Objective-C using blocks"
+
+    s.homepage       "http://www.keithpitt.com"
+    s.source         "https://github.com/keithpitt/DKBenchmark"
+    s.docs           "https://github.com/keithpitt/DKBenchmark/wiki"
+
+    s.files          [ "DKBenchmark.h", "DKBenchmark.m" ]
+
+    s.build_setting  :other_linker_flags, [ "-ObjC", "+lsdd" ]
+    s.build_setting  "CLANG_WARN_OBJCPP_ARC_ABI", false
+    s.build_setting  "GCC_PRECOMPILE_PREFIX_HEADER", "YES"
+
+    s.framework      "CoreGraphics.framework"
+    s.framework      "UIKit.framework"
+
+    s.dependency     "JSONKit", "0.5"
+    s.dependency     "ASIHTTPRequest", "~&gt; 4.2"
+    s.dependency     "AFINetworking", "&lt;= 2.5.a"
+
+end</code></pre>
+
+<p>Change what you need to match your project, then build a packaged
+  vendor library by running:</p>
+
+<pre><code>$ vendor library build my_library.vendorspec</code></pre>
+
+<p>Now that you have a packaged library, you can push it to <a href="http://vendorkit.com">http://vendorkit.com</a> by
+  running:</p>
+
+<pre><code>$ vendor library push my_library.vendor</code></pre>

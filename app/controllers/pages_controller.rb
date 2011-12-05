@@ -6,4 +6,8 @@ class PagesController < ApplicationController
     @updated_vendors = VendorKit::Vendor.updated.includes(:user).limit(5)
   end
 
+  def documentation
+    # Nothing
+  end
+
 end
