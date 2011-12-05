@@ -138,7 +138,7 @@ describe VendorKit::Version do
     context 'with an existing vendor' do
 
       let!(:existing) do
-        version = VendorForge::Version.create!(:user => user, :vendor_spec => existing_vendor_spec)
+        version = VendorKit::Version.create!(:user => user, :vendor_spec => existing_vendor_spec)
         version.reload
         version
       end
@@ -170,7 +170,7 @@ describe VendorKit::Version do
 
       it 'should increase the version count on the verndors versions' do
         expect do
-          VendorForge::Version.create(:user => user, :vendor_spec => new_vendor_spec)
+          VendorKit::Version.create(:user => user, :vendor_spec => new_vendor_spec)
         end.should change(existing.vendor.versions, :count).by(1)
       end
 
@@ -183,7 +183,7 @@ describe VendorKit::Version do
 
       it "should only update the vendor attributes if the new version record has a higher number than the current version" do
         existing.vendor.release.version.to_s.should == "0.1"
-        version = VendorForge::Version.new(:user => user, :vendor_spec => newer_vendor_spec)
+        version = VendorKit::Version.new(:user => user, :vendor_spec => newer_vendor_spec)
         version.save
         version.reload
 
@@ -192,7 +192,7 @@ describe VendorKit::Version do
       end
 
       it "should not update vendor attributes if the version you push is older than the current one" do
-        version = VendorForge::Version.new(:user => user, :vendor_spec => old_vendor_spec)
+        version = VendorKit::Version.new(:user => user, :vendor_spec => old_vendor_spec)
         version.save
         version.reload
 
