@@ -1,4 +1,4 @@
-module VendorForge
+module VendorKit
   class Dependency < ActiveRecord::Base
 
     belongs_to :version

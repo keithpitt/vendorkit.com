@@ -1,4 +1,4 @@
-module VendorForge
+module VendorKit
   module Extensions
     module String
 

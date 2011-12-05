@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe VendorForge::Extensions::String do
+describe VendorKit::Extensions::String do
 
   describe "#slugerize" do
 

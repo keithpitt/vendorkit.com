@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe VendorForge::Version do
+describe VendorKit::Version do
 
   it { should belong_to(:vendor) }
   it { should belong_to(:user) }
@@ -10,19 +10,19 @@ describe VendorForge::Version do
   it { should validate_presence_of(:user) }
 
   it "should have the package uploader mounted" do
-    VendorForge::Version.uploaders[:package].should == PackageUploader
+    VendorKit::Version.uploaders[:package].should == PackageUploader
   end
 
   context "<=>" do
 
     it "should return versions in the correct order when sorting" do
-      versions = [ VendorForge::Version.new(:number => '0.1'),
-                   VendorForge::Version.new(:number => '0.0.1'),
-                   VendorForge::Version.new(:number => '0.3.15'),
-                   VendorForge::Version.new(:number => '4.3.9'),
-                   VendorForge::Version.new(:number => '4.3.2'),
-                   VendorForge::Version.new(:number => '5.0.alpha'),
-                   VendorForge::Version.new(:number => '0.2.5') ]
+      versions = [ VendorKit::Version.new(:number => '0.1'),
+                   VendorKit::Version.new(:number => '0.0.1'),
+                   VendorKit::Version.new(:number => '0.3.15'),
+                   VendorKit::Version.new(:number => '4.3.9'),
+                   VendorKit::Version.new(:number => '4.3.2'),
+                   VendorKit::Version.new(:number => '5.0.alpha'),
+                   VendorKit::Version.new(:number => '0.2.5') ]
 
       versions.sort.map(&:number).should == ["0.0.1", "0.1", "0.2.5", "0.3.15", "4.3.2", "4.3.9", "5.0.alpha"]
     end
@@ -32,7 +32,7 @@ describe VendorForge::Version do
   context "#version" do
 
     it "should return a version object" do
-      version = VendorForge::Version.new(:number => "0.2.5")
+      version = VendorKit::Version.new(:number => "0.2.5")
 
       version.version.should == Vendor::Version.new("0.2.5")
     end
@@ -65,7 +65,7 @@ describe VendorForge::Version do
   context "#to_param" do
 
     it "should return the version number" do
-      version = VendorForge::Version.new(:number => "0.2.5")
+      version = VendorKit::Version.new(:number => "0.2.5")
 
       version.to_param.should == "0.2.5"
     end
@@ -76,7 +76,7 @@ describe VendorForge::Version do
 
     it "should load in the vendor spec" do
       vendor = File.open(Rails.root.join("spec", "resources", "vendors", "DKBenchmark-0.1.vendor"))
-      version = VendorForge::Version.new(:package => vendor)
+      version = VendorKit::Version.new(:package => vendor)
       version.save
       version.errors[:package].should be_empty
 
@@ -86,7 +86,7 @@ describe VendorForge::Version do
 
     it "should return an error if the vendor package's spec is missing" do
       vendor = File.open(Rails.root.join("spec", "resources", "vendors", "DKBenchmark-0.1-missing.vendor"))
-      version = VendorForge::Version.new(:package => vendor)
+      version = VendorKit::Version.new(:package => vendor)
       version.save
 
       version.errors[:package].should_not be_empty
@@ -94,7 +94,7 @@ describe VendorForge::Version do
 
     it "should return an error if the vendor package's spec is broken" do
       vendor = File.open(Rails.root.join("spec", "resources", "vendors", "DKBenchmark-0.1-broken.vendor"))
-      version = VendorForge::Version.new(:package => vendor)
+      version = VendorKit::Version.new(:package => vendor)
       version.save
 
       version.errors[:package].should_not be_empty
@@ -133,21 +133,21 @@ describe VendorForge::Version do
       let!(:existing) { FactoryGirl.create(:vendor, :name => "DKBenchmark", :user => user) }
 
       it 'should use an existing vendor owned by the user if it exists' do
-        version = VendorForge::Version.new(:user => user, :vendor_spec => new_vendor_spec)
+        version = VendorKit::Version.new(:user => user, :vendor_spec => new_vendor_spec)
         version.save
 
         version.vendor.should == existing
       end
 
       it "should add an error if the user doesn't own the existing vendor" do
-        version = VendorForge::Version.new(:user => other_user, :vendor_spec => new_vendor_spec)
+        version = VendorKit::Version.new(:user => other_user, :vendor_spec => new_vendor_spec)
 
         version.save.should be_false
         version.errors[:vendor].should_not be_nil
       end
 
       it 'should overwrite atributes on the existing vendor' do
-        version = VendorForge::Version.new(:user => user, :vendor_spec => new_vendor_spec)
+        version = VendorKit::Version.new(:user => user, :vendor_spec => new_vendor_spec)
         version.save
 
         version.vendor.authors.should == [ "keithpitt", "mariovisic" ]
@@ -159,19 +159,19 @@ describe VendorForge::Version do
 
       it 'should increase the version count on the verndors versions' do
         expect do
-          VendorForge::Version.create(:user => user, :vendor_spec => new_vendor_spec)
+          VendorKit::Version.create(:user => user, :vendor_spec => new_vendor_spec)
         end.should change(existing.versions, :count).by(1)
       end
 
       it "should not allow you upload an existing version" do
-        version = VendorForge::Version.new(:user => user, :vendor_spec => existing_vendor_spec)
+        version = VendorKit::Version.new(:user => user, :vendor_spec => existing_vendor_spec)
 
         version.save.should be_false
         version.errors[:vendor].should_not be_nil
       end
 
       it "should only update the vendor attributes if the new version record has a higher number than the current version" do
-        version = VendorForge::Version.new(:user => user, :vendor_spec => old_vendor_spec)
+        version = VendorKit::Version.new(:user => user, :vendor_spec => old_vendor_spec)
         version.save
 
         version.vendor.description.should_not == "THIS IS THE OLD ONE!!"
@@ -181,7 +181,7 @@ describe VendorForge::Version do
 
     context "with a new vendor" do
 
-      let!(:version) { VendorForge::Version.create(:user => user, :vendor_spec => existing_vendor_spec) }
+      let!(:version) { VendorKit::Version.create(:user => user, :vendor_spec => existing_vendor_spec) }
 
       it "should create a vendor" do
         version.vendor.name.should == "DKBenchmark"

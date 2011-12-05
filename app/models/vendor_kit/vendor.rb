@@ -1,4 +1,4 @@
-module VendorForge
+module VendorKit
   class Vendor < ActiveRecord::Base
 
     belongs_to :user

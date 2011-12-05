@@ -4,7 +4,7 @@ FactoryGirl.define do
     "vendor#{n}"
   end
 
-  factory :vendor, :class => "VendorForge::Vendor" do
+  factory :vendor, :class => "VendorKit::Vendor" do
     name        { Factory.next(:vendor_name) }
     association :user
 

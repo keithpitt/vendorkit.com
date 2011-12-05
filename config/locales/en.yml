@@ -5,7 +5,7 @@ en:
   activerecord:
     errors:
       models:
-        "vendor_forge/version":
+        "vendor_kit/version":
           attributes:
             package:
               missing_spec: "Missing vendor spec in package"

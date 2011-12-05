@@ -1,4 +1,4 @@
-module VendorForge
+module VendorKit
   class User < ActiveRecord::Base
 
     # Include default devise modules. Others available are:

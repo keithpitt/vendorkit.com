@@ -1,13 +1,13 @@
-# Vendorforge.org [![Build Status](https://secure.travis-ci.org/keithpitt/vendorforge.org.png)](http://travis-ci.org/keithpitt/vendorforge.org)
+# VendorKit.org [![Build Status](https://secure.travis-ci.org/keithpitt/vendorkit.com.png)](http://travis-ci.org/keithpitt/vendorkit.com)
 
 A site that allows you to publish and share iOS libraries created with the vendor gem. For more information, see: https://github.com/keithpitt/vendor
 
 ## Install
 
-The vendorforge has been built to work with Ruby 1.9.2. I have not tried to run it under any version of Ruby.
+The vendorkit.com site been built to work with Ruby 1.9.2. I have not tried to run it under any version of Ruby.
 
 ```bash
-$ git clone git://github.com/keithpitt/vendorforge.org.git
+$ git clone git://github.com/keithpitt/vendorkit.com.git
 $ bundle
 $ rake db:setup
 ```

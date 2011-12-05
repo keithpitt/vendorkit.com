@@ -16,7 +16,7 @@ describe VendorsController do
         get :new
 
         response.should be_success
-        assigns[:version].should be_kind_of(VendorForge::Version)
+        assigns[:version].should be_kind_of(VendorKit::Version)
         assigns[:version].should_not be_persisted
       end
 
@@ -51,7 +51,7 @@ describe VendorsController do
           post :create, :version => { :package => fixture_file_upload(upload) }
 
           response.should redirect_to("/vendors/DKBenchmark")
-        end.should change(VendorForge::Vendor, :count).by(1)
+        end.should change(VendorKit::Vendor, :count).by(1)
       end
 
       it "should render the new page an invalid package" do
@@ -60,7 +60,7 @@ describe VendorsController do
 
           response.should be_success
           response.should render_template(:new)
-        end.should change(VendorForge::Vendor, :count).by(0)
+        end.should change(VendorKit::Vendor, :count).by(0)
       end
 
     end
@@ -97,9 +97,9 @@ describe VendorsController do
     end
 
     it "should allow you to pass a different version to the vendor" do
-      version1 = VendorForge::Version.create(:user => vendor.user,
+      version1 = VendorKit::Version.create(:user => vendor.user,
                                              :package => File.open(Rails.root.join("spec", "resources", "vendors", "DKBenchmark-0.1.vendor")))
-      version2 = VendorForge::Version.create(:user => vendor.user,
+      version2 = VendorKit::Version.create(:user => vendor.user,
                                              :package => File.open(Rails.root.join("spec", "resources", "vendors", "DKBenchmark-0.2.vendor")))
 
       get :show, :vendor_id => "DKBenchmark", :version => "0.2"
@@ -154,7 +154,7 @@ describe VendorsController do
           delete :destroy, :id => version.vendor.name
 
           response.should redirect_to(vendor_path(version.vendor))
-        end.should change(VendorForge::Version, :count).by(-1)
+        end.should change(VendorKit::Version, :count).by(-1)
       end
 
       it "should return a 404 if the vendor couldn't be found" do
@@ -205,9 +205,9 @@ describe VendorsController do
     it "should create a download record" do
       expect do
         get :download, :vendor_id => "DKBenchmark", :version => "0.1"
-      end.should change(VendorForge::Download, :count).by(1)
+      end.should change(VendorKit::Download, :count).by(1)
 
-      VendorForge::Download.latest.first.version.should == version
+      VendorKit::Download.latest.first.version.should == version
     end
 
     it "should return a 404 if the vendor couldn't be found" do

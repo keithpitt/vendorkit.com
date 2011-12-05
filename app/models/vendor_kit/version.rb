@@ -1,4 +1,4 @@
-module VendorForge
+module VendorKit
   class Version < ActiveRecord::Base
 
     require 'zip/zipfilesystem'
@@ -33,7 +33,7 @@ module VendorForge
     end
 
     def <=>(other)
-      return unless other.kind_of?(VendorForge::Version)
+      return unless other.kind_of?(VendorKit::Version)
       version <=> other.version
     end
 
@@ -68,7 +68,7 @@ module VendorForge
 
       def update_from_vendor_spec
         spec = HashWithIndifferentAccess.new(vendor_spec)
-        existing = VendorForge::Vendor.where(:name => vendor_spec[:name]).first
+        existing = VendorKit::Vendor.where(:name => vendor_spec[:name]).first
 
         if existing.present?
           if existing.user == user
@@ -83,7 +83,7 @@ module VendorForge
             return false
           end
         else
-          self.vendor = VendorForge::Vendor.new(:name => vendor_spec[:name], :user => user)
+          self.vendor = VendorKit::Vendor.new(:name => vendor_spec[:name], :user => user)
         end
 
         self.number = vendor_spec[:version]

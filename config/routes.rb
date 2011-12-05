@@ -1,6 +1,6 @@
-Vendorforge::Application.routes.draw do
+VendorKit::Application.routes.draw do
 
-  devise_for :users, :class_name => "VendorForge::User"
+  devise_for :users, :class_name => "VendorKit::User"
 
   root :to => 'pages#index'
 

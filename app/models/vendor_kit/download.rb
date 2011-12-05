@@ -1,4 +1,4 @@
-module VendorForge
+module VendorKit
   class Download < ActiveRecord::Base
 
     belongs_to :version

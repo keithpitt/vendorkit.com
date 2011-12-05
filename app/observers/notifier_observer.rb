@@ -1,6 +1,6 @@
 class NotifierObserver < ActiveRecord::Observer
 
-  observe VendorForge::Version
+  observe VendorKit::Version
 
   def after_create(version)
     Resque.enqueue(TwitterUpdater, version.id)

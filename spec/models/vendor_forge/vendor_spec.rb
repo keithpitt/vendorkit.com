@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe VendorForge::Vendor do
+describe VendorKit::Vendor do
 
   let!(:vendor) do
     vendor = FactoryGirl.create(:vendor, :name => "DKSupport", :description => "Foo bar")
@@ -25,7 +25,7 @@ describe VendorForge::Vendor do
   end
 
   it "should create a slug of the name" do
-    vendor = VendorForge::Vendor.create(:name => "Something_goes !! \" HERE \#@%i")
+    vendor = VendorKit::Vendor.create(:name => "Something_goes !! \" HERE \#@%i")
 
     vendor.slug.should == "Something_goes-HERE-i"
   end
@@ -36,7 +36,7 @@ describe VendorForge::Vendor do
       second = FactoryGirl.create(:vendor)
       first = FactoryGirl.create(:vendor)
 
-      vendors = VendorForge::Vendor.latest.limit(2)
+      vendors = VendorKit::Vendor.latest.limit(2)
 
       vendors.first.should == first
       vendors.second.should == second

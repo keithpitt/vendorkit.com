@@ -5,10 +5,10 @@ class TwitterUpdater
   require 'shrinker'
 
   def self.perform(version_id)
-    version = VendorForge::Version.find(version_id)
+    version = VendorKit::Version.find(version_id)
     vendor = version.vendor
 
-    vendor_url = Rails.application.routes.url_helpers.vendor_url(vendor, :host => "vendorforge.org")
+    vendor_url = Rails.application.routes.url_helpers.vendor_url(vendor, :host => "vendorkit.com")
     start = "#{vendor.name} (#{version.number}): #{Shrinker.shrink(vendor_url)} "
     dots = '...'
 

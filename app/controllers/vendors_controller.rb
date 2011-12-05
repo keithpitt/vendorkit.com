@@ -8,7 +8,7 @@ class VendorsController < ApplicationController
   before_filter :find_version, :only => [ :show, :download, :destroy ]
 
   def index
-    @vendors = VendorForge::Vendor.all
+    @vendors = VendorKit::Vendor.all
   end
 
   def new
@@ -25,7 +25,7 @@ class VendorsController < ApplicationController
   end
 
   def download
-    VendorForge::Download.create :version => @version
+    VendorKit::Download.create :version => @version
 
     redirect_to @version.package.url
   end
@@ -75,7 +75,7 @@ class VendorsController < ApplicationController
 
     def find_vendor
       id = params[:id] || params[:vendor_id]
-      @vendor = VendorForge::Vendor.where{ lower(:slug) == id.downcase}.first if id.present?
+      @vendor = VendorKit::Vendor.where{ lower(:slug) == id.downcase}.first if id.present?
 
       raise ActiveRecord::RecordNotFound.new("Vendor not found") unless @vendor.present?
     end

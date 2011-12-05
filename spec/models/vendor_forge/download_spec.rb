@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe VendorForge::Download do
+describe VendorKit::Download do
 
   it { should belong_to(:version) }
 

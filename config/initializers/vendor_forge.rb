@@ -1,1 +1,1 @@
-String.send(:include, VendorForge::Extensions::String)
+String.send(:include, VendorKit::Extensions::String)
