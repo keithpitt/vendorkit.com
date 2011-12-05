@@ -1,0 +1,34 @@
+body {
+  padding-top: 60px; /* 40px to make the container go all the way to the bottom of the topbar */
+  background: #f3f2f0 url(/images/background.png);
+}
+
+.nav-right {
+  float: right;
+}
+
+footer {
+  border-top: 0;
+  color: #929291;
+  padding: 0;
+}
+
+footer .container {
+  padding: 20px 0;
+}
+
+footer a {
+  color: #5880c3;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+hr {
+  border-bottom: 1px solid #d1d1d1;
+}
+
+input[type="file"] {
+  background: transparent;
+}

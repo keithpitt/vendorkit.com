@@ -7,33 +7,57 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <a href="http://github.com/keithpitt/vendorkit.com"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
-  <div class="container">
-    <h1 style="padding-top: 20px">VendorKit</h1>
-    <ul class="tabs">
-      <li class="<%= controller_name == 'pages' ? "active" : "" %>"><%= link_to "Home", :root %></li>
-      <li class="<%= controller_name == 'vendors' && action_name =~ /(index|show)/ ? "active" : "" %>"><%= link_to "Vendors", vendors_path %></li>
-      <% if user_signed_in? %>
-        <li class="<%= controller_name == 'vendors' && action_name =~ /(new|create)/ ? "active" : "" %>"><%= link_to "Upload", new_vendor_path %></li>
-        <li class="<%= controller_name == 'registrations' ? "active" : "" %>"><%= link_to "Settings", edit_user_registration_path %></li>
-        <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
-      <% else %>
-        <li class="<%= controller_name == 'registrations' ? "active" : "" %>"><%= link_to "Sign up", new_user_registration_path %></li>
-        <li class="<%= controller_name == 'sessions' ? "active" : "" %>"><%= link_to "Sign in", new_user_session_path %></li>
-      <% end %>
-    </ul>
-    <% flash.each do |key, message| %>
-      <div class="alert-message <%= key == :alert ? "error" : "success" %>">
-        <%= message %>
+
+  <div class="topbar">
+    <div class="fill">
+      <div class="container">
+        <a class="brand" href="/">VendorKit</a>
+        <ul class="nav">
+          <li class="<%= controller_name == 'pages' ? "active" : "" %>"><%= link_to "Home", :root %></li>
+          <li class="<%= controller_name == 'vendors' && action_name =~ /(index|show)/ ? "active" : "" %>"><%= link_to "Libraries", vendors_path %></li>
+          <% if user_signed_in? %>
+            <li class="<%= controller_name == 'vendors' && action_name =~ /(new|create)/ ? "active" : "" %>"><%= link_to "Share", new_vendor_path %></li>
+            <li class="<%= controller_name == 'registrations' ? "active" : "" %>"><%= link_to "Settings", edit_user_registration_path %></li>
+          <% else %>
+            <li class="<%= controller_name == 'registrations' ? "active" : "" %>"><%= link_to "Sign up", new_user_registration_path %></li>
+          <% end %>
+        </ul>
+        <div class="nav-right">
+          <% if user_signed_in? %>
+            <ul class="nav">
+              <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+            </ul>
+          <% else %>
+            <%= form_tag user_session_path do |f| %>
+              <input class="input-small" type="text" name="user[login]" placeholder="Login">
+              <input class="input-small" type="password" name="user[password]" placeholder="Password">
+              <button class="btn" type="submit">Sign in</button>
+            <% end %>
+          <% end %>
+        </div>
       </div>
-    <% end %>
-    <%= yield %>
+    </div>
   </div>
+
+  <div class="main container">
+    <div class="content">
+      <% flash.each do |key, message| %>
+        <div class="alert-message <%= key == :alert ? "error" : "success" %>">
+          <%= message %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+  </div>
+
   <footer class="footer">
     <div class="container">
-      <p>Made by <a href="http://www.twitter.com/keithpitt">@keithpitt</a> | Follow <a href="http://www.twitter.com/vendorkit">@vendorkit</a> on Twitter!</p>
+      Made by <a href="http://www.twitter.com/keithpitt">@keithpitt</a>
+      | Follow <a href="http://www.twitter.com/vendorkit">@vendorkit</a> on Twitter!
+      | Grab the <a href="https://github.com/keithpitt/vendor">source code</a> on GitHub
     </div>
   </footer>
+
   <script type="text/javascript">
     var _gauges = _gauges || [];
     (function() {
@@ -47,5 +71,6 @@
      s.parentNode.insertBefore(t, s);
      })();
   </script>
+
 </body>
 </html>

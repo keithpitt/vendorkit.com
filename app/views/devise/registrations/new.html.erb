@@ -1,10 +1,12 @@
+<div class="page-header">
+  <h1>Signup</h1>
+</div>
+
 <%= form_errors!(resource) %>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
   <fieldset>
-
-    <legend>Sign up</legend>
 
     <div class="clearfix">
       <%= f.label :username %>

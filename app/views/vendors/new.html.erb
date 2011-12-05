@@ -1,10 +1,12 @@
+<div class="page-header">
+  <h1>Share Library</h1>
+</div>
+
 <%= form_errors!(@version) %>
 
 <%= form_for(@version, :as => :version, :url => vendors_path) do |f| %>
 
   <fieldset>
-
-    <legend>Upload a Vendor Package</legend>
 
     <div class="clearfix">
       <%= f.label :package %>

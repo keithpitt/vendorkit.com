@@ -12,9 +12,9 @@ end
 
 When /^I login with "([^"]*)" and "([^"]*)"$/ do |login, password|
   visit path_to('the login page')
-  fill_in("Login", :with => login)
-  fill_in("Password", :with => password)
-  click_button("Sign in")
+  fill_in("user_login", :with => login)
+  fill_in("user_password", :with => password)
+  click_button("main_sign_in")
 end
 
 When /^I have already logged in$/ do
