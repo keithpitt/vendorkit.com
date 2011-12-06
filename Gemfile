@@ -129,3 +129,10 @@ group :test do
   gem 'growl'
 
 end
+
+group :production do
+
+  # Speed watch
+  gem 'newrelic_rpm'
+
+end
