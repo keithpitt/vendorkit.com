@@ -5,6 +5,7 @@ module VendorKit
 
     class MissingVendorSpec < StandardError; end
     class InvalidVendorSpec < StandardError; end
+    class MalformedVersion  < StandardError; end
 
     serialize :vendor_spec
 
@@ -56,8 +57,17 @@ module VendorKit
               spec = JSON.parse(json)
               raise InvalidVendorSpec.new unless spec.present?
 
+              begin
+                # See if its a valid version format
+                ::Vendor::Version.new(spec['version']).version
+              rescue Exception => e
+                raise MalformedVersion.new e.message
+              end
+
               self.vendor_spec = spec
             end
+          rescue MalformedVersion => e
+            errors.add(:package, :malformed_version)
           rescue MissingVendorSpec => e
             errors.add(:package, :missing_spec)
           rescue InvalidVendorSpec => e

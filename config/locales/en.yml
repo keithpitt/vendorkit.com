@@ -9,5 +9,6 @@ en:
           attributes:
             package:
               missing_spec: "Missing vendor spec in package"
+              malformed_version: "The version number you are using is an invalid format. Please use a format such as this: 0.2 or 0.2.alpha"
             number:
               existing_version: "A version of this vendor package already exists"

@@ -100,6 +100,16 @@ describe VendorKit::Version do
       version.errors[:package].should_not be_empty
     end
 
+    it "should return an error if the vendor has a bad version string" do
+      vendor = File.open(Rails.root.join("spec", "resources", "vendors", "DKBenchmark-0.1-bad-version.vendor"))
+      version = VendorKit::Version.new(:package => vendor)
+      version.save
+
+      puts version.errors.inspect
+
+      version.errors[:package].should_not be_empty
+    end
+
   end
 
   context 'setting a vendor spec' do
