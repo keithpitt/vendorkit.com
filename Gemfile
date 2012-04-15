@@ -43,7 +43,10 @@ gem 'twitter'
 gem 'is-gd-shrinker'
 
 # For background stuffs
-gem 'resque'
+gem 'resque', '>= 1.10.0'
+
+# Deploying on Heroku
+gem 'heroku'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -67,25 +70,18 @@ group :development do
 
   # Gaurd for easier development (with things like spork)
   gem 'guard'
-  gem 'rb-inotify', :require => false
-  gem 'rb-fsevent', :require => false
-  gem 'rb-fchange', :require => false
 
   # For guard rspec and cucumber support
   gem 'guard-rspec', :git => "git://github.com/guard/guard-rspec.git"
   gem 'guard-cucumber', :git => "git://github.com/guard/guard-cucumber.git"
   gem 'guard-bundler'
 
-  # Deploying on Heroku
-  gem 'heroku'
-
 end
 
 group :development, :test do
 
-
   # To use debugger
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  # gem 'ruby-debug19', :require => 'ruby-debug'
 
   # Cucumber for testing
   gem 'cucumber-rails'

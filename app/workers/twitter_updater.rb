@@ -1,5 +1,7 @@
 class TwitterUpdater
 
+  extend HerokuResqueAutoScale
+
   @queue = :twitter_updater
 
   require 'shrinker'
