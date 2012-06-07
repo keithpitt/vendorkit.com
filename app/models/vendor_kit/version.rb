@@ -81,7 +81,7 @@ module VendorKit
         existing = VendorKit::Vendor.where(:name => vendor_spec[:name]).first
 
         if existing.present?
-          if existing.user == user
+          if existing.user == user || user.admin?
             if existing.versions.where(:number => vendor_spec[:version]).exists?
               errors.add :number, :existing_version
               return false

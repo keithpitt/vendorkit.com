@@ -167,6 +167,13 @@ describe VendorKit::Version do
         version.errors[:vendor].should_not be_nil
       end
 
+      it "should allow you to upload vendors if your an admin" do
+        other_user.stub(:admin?).and_return true
+        version = VendorKit::Version.new(:user => other_user, :vendor_spec => new_vendor_spec)
+
+        version.save.should be_true
+      end
+
       it 'should overwrite atributes on the existing vendor' do
         version = VendorKit::Version.new(:user => user, :vendor_spec => new_vendor_spec)
         version.save
