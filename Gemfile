@@ -1,10 +1,12 @@
 source 'http://rubygems.org'
 
+ruby '1.9.3'
+
 # Use latest rack to get rid of pesky errors
-gem 'rack', '~> 1.3.5'
+gem 'rack'
 
 # Rails 3.1, oooer
-gem 'rails', '3.1.1'
+gem 'rails'
 
 # Postgres database
 gem 'pg'
@@ -43,7 +45,7 @@ gem 'twitter'
 gem 'is-gd-shrinker'
 
 # For background stuffs
-gem 'resque', '>= 1.10.0'
+gem 'resque'
 
 # Deploying on Heroku
 gem 'heroku'
@@ -53,10 +55,10 @@ gem 'heroku'
 group :assets do
 
   # Sass stylesheets
-  gem 'sass-rails', "  ~> 3.1.0"
+  gem 'sass-rails'
 
   # Coffeescript for nicer JavaScript
-  gem 'coffee-rails', "~> 3.1.0"
+  gem 'coffee-rails'
 
   # Compressionn gem for CSS/JavaScript
   gem 'uglifier'
@@ -68,14 +70,6 @@ group :development do
   # Running multiple proccess easier
   gem 'foreman'
 
-  # Gaurd for easier development (with things like spork)
-  gem 'guard'
-
-  # For guard rspec and cucumber support
-  gem 'guard-rspec', :git => "git://github.com/guard/guard-rspec.git"
-  gem 'guard-cucumber', :git => "git://github.com/guard/guard-cucumber.git"
-  gem 'guard-bundler'
-
 end
 
 group :development, :test do
@@ -83,31 +77,27 @@ group :development, :test do
   # To use debugger
   # gem 'ruby-debug19', :require => 'ruby-debug'
 
-  # Cucumber for testing
-  gem 'cucumber-rails'
-
   # Rails love for RSpec
-  gem 'rspec-rails', '2.7.0'
-
-  # So we can use guard to run spork
-  gem 'spork', :git => "git://github.com/chrismdp/spork.git"
-  gem 'guard-spork', :git => "git://github.com/guard/guard-spork.git"
+  gem 'rspec-rails'
 
 end
 
 group :test do
 
+  # Cucumber for testing
+  gem 'cucumber-rails'
+
   # Better rspec formatter
   gem 'fuubar'
 
   # Headless testing
-  gem 'capybara-webkit', :git => 'git://github.com/thoughtbot/capybara-webkit.git'
+  gem 'capybara-webkit'
 
   # Testing Resque
   gem 'resque_spec'
 
   # Code coverage
-  gem 'rcov'
+  # gem 'rcov'
 
   # For easier tests
   gem 'shoulda-matchers'
