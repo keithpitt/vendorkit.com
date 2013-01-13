@@ -1,6 +1,6 @@
 class TwitterUpdater
 
-  extend HerokuResqueAutoScale
+  extend HerokuResqueAutoScale if Rails.env.production?
 
   @queue = :twitter_updater
 

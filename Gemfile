@@ -45,10 +45,12 @@ gem 'twitter'
 gem 'is-gd-shrinker'
 
 # For background stuffs
-gem 'resque'
+# Paticular versions so we can use auto-scale
+gem 'resque', '1.10.0'
+gem 'json', '1.4.6'
 
-# Deploying on Heroku
-gem 'heroku'
+# For cheap heroku scaling stuff
+gem 'heroku-resque-auto-scale'
 
 # Gems used only for assets and not required
 # in production environments by default.
