@@ -3,12 +3,13 @@ When /^I register successfully$/ do
 
   visit path_to('the registration page')
 
-  fill_in("Username", :with => user[:username])
-  fill_in("Email", :with => user[:email])
-  fill_in("Password", :with => user[:password])
-  fill_in("Confirmation", :with => user[:password_confirmation])
-
-  click_button("Sign up")
+  within "#new_user" do
+    fill_in("Username", :with => user[:username])
+    fill_in("Email", :with => user[:email])
+    fill_in("Password", :with => user[:password])
+    fill_in("Confirmation", :with => user[:password_confirmation])
+    click_button("Sign up")
+  end
 end
 
 When /^I register unsuccessfully$/ do
