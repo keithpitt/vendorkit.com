@@ -4,7 +4,7 @@ describe TwitterUpdater do
 
   describe '#perform' do
 
-    let(:version) { Factory.create(:version, :number => "1.0.2") }
+    let(:version) { FactoryGirl.create(:version, :number => "1.0.2") }
     let(:vendor)  { version.vendor }
 
     before :each do

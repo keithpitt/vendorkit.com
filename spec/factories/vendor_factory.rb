@@ -5,10 +5,10 @@ FactoryGirl.define do
   end
 
   factory :vendor, :class => "VendorKit::Vendor" do
-    name        { Factory.next(:vendor_name) }
+    name        { FactoryGirl.generate(:vendor_name) }
     association :user
 
-    after_build do |vendor|
+    after(:build) do |vendor|
       vendor.versions.build :user => vendor.user, :number => "0.1"
     end
   end

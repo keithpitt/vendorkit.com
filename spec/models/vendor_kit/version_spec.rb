@@ -42,22 +42,22 @@ describe VendorKit::Version do
   context "#destroy" do
 
     it "should destroy the vendor" do
-      vendor = Factory.create(:vendor)
+      vendor = FactoryGirl.create(:vendor)
       vendor.versions.first.destroy
 
       expect do
         vendor.reload
-      end.should raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should not destroy the vendor if there are multiple versions" do
-      vendor = Factory.create(:vendor)
-      other_version = Factory.create(:version, :vendor => vendor)
+      vendor = FactoryGirl.create(:vendor)
+      other_version = FactoryGirl.create(:version, :vendor => vendor)
       vendor.versions.first.destroy
 
       expect do
         vendor.reload
-      end.should_not raise_error(ActiveRecord::RecordNotFound)
+      end.to_not raise_error(ActiveRecord::RecordNotFound)
     end
 
   end
@@ -104,8 +104,6 @@ describe VendorKit::Version do
       vendor = File.open(Rails.root.join("spec", "resources", "vendors", "DKBenchmark-0.1-bad-version.vendor"))
       version = VendorKit::Version.new(:package => vendor)
       version.save
-
-      puts version.errors.inspect
 
       version.errors[:package].should_not be_empty
     end
@@ -188,7 +186,7 @@ describe VendorKit::Version do
       it 'should increase the version count on the verndors versions' do
         expect do
           VendorKit::Version.create(:user => user, :vendor_spec => new_vendor_spec)
-        end.should change(existing.vendor.versions, :count).by(1)
+        end.to change(existing.vendor.versions, :count).by(1)
       end
 
       it "should not allow you upload an existing version" do

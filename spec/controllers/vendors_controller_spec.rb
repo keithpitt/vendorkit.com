@@ -51,7 +51,7 @@ describe VendorsController do
           post :create, :version => { :package => fixture_file_upload(upload) }
 
           response.should redirect_to("/vendors/DKBenchmark")
-        end.should change(VendorKit::Vendor, :count).by(1)
+        end.to change(VendorKit::Vendor, :count).by(1)
       end
 
       it "should render the new page an invalid package" do
@@ -60,7 +60,7 @@ describe VendorsController do
 
           response.should be_success
           response.should render_template(:new)
-        end.should change(VendorKit::Vendor, :count).by(0)
+        end.to change(VendorKit::Vendor, :count).by(0)
       end
 
     end
@@ -138,7 +138,7 @@ describe VendorsController do
 
   context "#destroy" do
 
-    let!(:version) { Factory.create(:version, :user => user) }
+    let!(:version) { FactoryGirl.create(:version, :user => user) }
 
     context "with a current user" do
 
@@ -154,7 +154,7 @@ describe VendorsController do
           delete :destroy, :id => version.vendor.name
 
           response.should redirect_to(vendor_path(version.vendor))
-        end.should change(VendorKit::Version, :count).by(-1)
+        end.to change(VendorKit::Version, :count).by(-1)
       end
 
       it "should return a 404 if the vendor couldn't be found" do
@@ -164,7 +164,7 @@ describe VendorsController do
       end
 
       it "should redirect if the user didn't upload the version" do
-        version.update_attribute :user, Factory.create(:user)
+        version.update_attribute :user, FactoryGirl.create(:user)
         delete :destroy, :id => version.vendor.name
 
         response.status.should == 403
@@ -188,7 +188,7 @@ describe VendorsController do
   context "#download" do
 
     let(:package) { File.open(Rails.root.join("spec", "resources", "vendors", "DKBenchmark-0.1.vendor")) }
-    let!(:version) { Factory.create(:version, :package => package) }
+    let!(:version) { FactoryGirl.create(:version, :package => package) }
 
     it "should find the version based on its number" do
       get :download, :vendor_id => "DKBenchmark", :version => "0.1"
@@ -205,7 +205,7 @@ describe VendorsController do
     it "should create a download record" do
       expect do
         get :download, :vendor_id => "DKBenchmark", :version => "0.1"
-      end.should change(VendorKit::Download, :count).by(1)
+      end.to change(VendorKit::Download, :count).by(1)
 
       VendorKit::Download.latest.first.version.should == version
     end

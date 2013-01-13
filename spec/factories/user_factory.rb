@@ -5,7 +5,7 @@ FactoryGirl.define do
   end
 
   factory :user, :class => "VendorKit::User" do
-    username              { Factory.next(:username) }
+    username
     email                 { Forgery(:internet).email_address }
     password              'password'
     password_confirmation 'password'
