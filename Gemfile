@@ -85,7 +85,7 @@ end
 group :test do
 
   # Cucumber for testing
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
 
   # Better rspec formatter
   gem 'fuubar'
