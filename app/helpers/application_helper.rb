@@ -1,6 +1,7 @@
 module ApplicationHelper
 
   require "uri"
+  require 'redcarpet/compat'
 
   def form_errors!(resource)
     if resource.errors.present?
@@ -12,7 +13,7 @@ module ApplicationHelper
   end
 
   def markdown_render(text)
-    markdown = Redcarpet.new(text)
+    markdown = Markdown.new(text)
     markdown.to_html.html_safe
   end
 
