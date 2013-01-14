@@ -1,2 +1,2 @@
 web: bundle exec rails server -p $PORT
-resque: VERBOSE=1 QUEUE=* bundle exec rake resque:work
+resque: bundle exec rake resque:work VERBOSE=1 QUEUE=*
