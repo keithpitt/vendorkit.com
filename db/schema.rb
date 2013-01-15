@@ -17,34 +17,34 @@ ActiveRecord::Schema.define(:version => 20120607132227) do
     t.integer  "version_id"
     t.string   "name"
     t.string   "number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "dependencies", ["version_id"], :name => "index_dependencies_on_version_id"
 
   create_table "downloads", :force => true do |t|
     t.integer  "version_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "downloads", ["version_id"], :name => "index_downloads_on_version_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",          :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "username"
     t.boolean  "admin"
   end
@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(:version => 20120607132227) do
     t.string   "name"
     t.string   "homepage"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "authors"
     t.string   "email"
     t.string   "slug"
@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(:version => 20120607132227) do
     t.integer  "vendor_id"
     t.integer  "user_id"
     t.string   "number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "package"
     t.text     "vendor_spec"
     t.integer  "downloads_count", :default => 0
