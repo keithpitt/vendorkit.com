@@ -1,4 +1,4 @@
-# VendorKit.com [![Build Status](https://secure.travis-ci.org/keithpitt/vendorkit.com.png)](http://travis-ci.org/keithpitt/vendorkit.com)
+# [SHUTDOWN] VendorKit.com [![Build Status](https://secure.travis-ci.org/keithpitt/vendorkit.com.png)](http://travis-ci.org/keithpitt/vendorkit.com)
 
 A site that allows you to publish and share iOS libraries created with the vendor gem. For more information, see: https://github.com/keithpitt/vendor
 
